@@ -3,7 +3,7 @@ import "./Header.css";
 import logo from "./assets/logo.png";
 import logoAlt from "./assets/logo-alt.png";
 
-const Header = () => {
+const Header = ({ onNavClick, activeSection }) => {
 	const [isFlipping, setIsFlipping] = useState(false);
 	const [isLogoAlt, setIsLogoAlt] = useState(false);
 	const [displayedLogo, setDisplayedLogo] = useState(logo);
@@ -27,7 +27,12 @@ const Header = () => {
 				setIsLogoAlt((prev) => !prev);
 				setIsFlipping(false);
 			}
-		}, 240); // Adjusted timing for smooth transitions
+		}, 240);
+	};
+
+	const handleNavClick = (section, e) => {
+		e.preventDefault();
+		onNavClick(section);
 	};
 
 	return (
@@ -51,17 +56,35 @@ const Header = () => {
 			<nav className="header__center">
 				<ul className="nav__list">
 					<li className="nav__item">
-						<a href="#about" className="nav__link">
+						<a
+							href="#about"
+							className={`nav__link ${
+								activeSection === "about" ? "active" : ""
+							}`}
+							onClick={(e) => handleNavClick("about", e)}
+						>
 							About
 						</a>
 					</li>
 					<li className="nav__item">
-						<a href="#projects" className="nav__link">
+						<a
+							href="#projects"
+							className={`nav__link ${
+								activeSection === "projects" ? "active" : ""
+							}`}
+							onClick={(e) => handleNavClick("projects", e)}
+						>
 							Projects
 						</a>
 					</li>
 					<li className="nav__item">
-						<a href="#contact" className="nav__link">
+						<a
+							href="#contact"
+							className={`nav__link ${
+								activeSection === "contact" ? "active" : ""
+							}`}
+							onClick={(e) => handleNavClick("contact", e)}
+						>
 							Contact
 						</a>
 					</li>
